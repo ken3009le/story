@@ -3,11 +3,11 @@ var cors_api_url = "https://cors-anywhere.herokuapp.com/";
 async function fetchRandomManga() {
     let apiUrl = cors_api_url + "https://wholesomelist.com/api/random";
     let container = document.getElementById("container");
-    
+
     try {
         let response = await fetch(apiUrl);
         let data = await response.json();
-        
+
         if (data.result) {
             let entry = data.entry;
             let card = document.createElement("div");
@@ -21,7 +21,8 @@ async function fetchRandomManga() {
                 <p><strong>Số trang:</strong> ${entry.pages}</p>
                 <p><strong>🔗 Link:</strong> <a href="${entry.eh || entry.im || entry.nh || '#'}" target="_blank">Đọc Truyện</a></p>
             `;
-            container.appendChild(card);
+            // Thay vì appendChild(), sử dụng prepend() để thêm vào đầu danh sách
+            container.prepend(card);
         }
     } catch (error) {
         console.error("Lỗi khi lấy dữ liệu:", error);
